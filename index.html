@@ -43,10 +43,10 @@
     resultCount.textContent = query || period !== 'all' ? '找到 ' + visible.length + ' 门课程' : '共 ' + visible.length + ' 门课程';
     cards.innerHTML = visible.length ? visible.map(item => {
       const isDay2 = item.day === 2;
-      const href = isDay2 ? 'day2.html' : item.sourceUrl;
-      const destination = isDay2 ? '手机学习版' : '原课程';
+      const href = isDay2 ? 'day2.html' : ('lesson.html?day=' + item.day);
+      const destination = '手机学习版';
       const meta = [item.topic, item.author, item.accent].filter(Boolean).join(' · ');
-      return '<a class="day ' + (isDay2?'featured':'') + '" href="' + esc(href) + '" ' + (isDay2?'':'target="_blank" rel="noopener"') + ' aria-label="Day ' + item.day + '，' + esc(item.topic) + '，' + esc(destination) + '"><span class="number">' + String(item.day).padStart(2,'0') + '</span><span class="detail"><span class="title">' + esc(item.title || ('英语积累 Day ' + item.day)) + '</span><span class="meta">' + esc(meta || item.period) + '</span></span><span class="tag">' + esc(destination) + '</span></a>';
+      return '<a class="day ' + (isDay2?'featured':'') + '" href="' + esc(href) + '" aria-label="Day ' + item.day + '，' + esc(item.topic) + '，' + esc(destination) + '"><span class="number">' + String(item.day).padStart(2,'0') + '</span><span class="detail"><span class="title">' + esc(item.title || ('英语积累 Day ' + item.day)) + '</span><span class="meta">' + esc(meta || item.period) + '</span></span><span class="tag">' + esc(destination) + '</span></a>';
     }).join('') : '<div class="empty">没有找到符合条件的课程，试试其他 Day、主题或博主。</div>';
   }
   search.addEventListener('input', render);
